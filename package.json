@@ -1,0 +1,10 @@
+{
+  "main": "./integration.js",
+  "name": "internet_storm_center",
+  "version": "3.0.0",
+  "private": true,
+  "author": "ThreatConnect",
+  "dependencies": {
+    "polarity-integration-utils": "^0.1.0"
+  }
+}

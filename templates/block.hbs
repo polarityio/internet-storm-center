@@ -1,0 +1,76 @@
+<div>
+  <span class="p-key">Attacks:</span>
+  <span class="p-value">{{ip.attacks}}</span>
+</div>
+<div>
+  <span class="p-key">Count:</span>
+  <span class="p-value">{{ip.count}}</span>
+</div>
+<div>
+  <span class="p-key">Comment:</span>
+  <span class="p-value">{{ip.comment}}</span>
+</div>
+<div>
+  <span class="p-key">Max Risk:</span>
+  <span class="p-value">{{ip.maxrisk}}</span>
+</div>
+
+<h1 class="p-title">Alexa Info</h1>
+<div>
+  <span class="p-key">Domains:</span>
+  <span class="p-value">{{ip.alexa.domains}}</span>
+</div>
+<div>
+  <span class="p-key">First Seen:</span>
+  <span class="p-value">{{ip.alexa.firstseen}}</span>
+</div>
+<div>
+  <span class="p-key">Hostname:</span>
+  <span class="p-value">{{ip.alexa.hostname}}</span>
+</div>
+<div>
+  <span class="p-key">Last Rank:</span>
+  <span class="p-value">{{ip.alexa.lastrank}}</span>
+</div>
+<div>
+  <span class="p-key">Last Seen:</span>
+  <span class="p-value">{{ip.alexa.lastseen}}</span>
+</div>
+
+<h1 class="p-title">AS Info</h1>
+<div>
+  <span class="p-key">ASN:</span>
+  <span class="p-value">AS{{ip.as}}</span>
+</div>
+<div>
+  <span class="p-key">Name:</span>
+  <span class="p-value">{{ip.asname}}</span>
+</div>
+<div>
+  <span class="p-key">Country:</span>
+  <span class="p-value">{{ip.ascountry}}</span>
+</div>
+<div>
+  <span class="p-key">Size:</span>
+  <span class="p-value">{{ip.assize}}</span>
+</div>
+<div>
+  <span class="p-key">Abuse Contact:</span>
+  <span class="p-value">{{ip.asabusecontact}}</span>
+</div>
+
+<h1 class="p-title">Threat Feeds</h1>
+{{#each-in ip.threatfeeds as | feedName value |}}
+  <div>
+    <span class="p-key">Feed Name:</span>
+    <span class="p-value">{{feedName}}</span>
+  </div>
+  <div>
+    <span class="p-key">First Seen:</span>
+    <span class="p-value">{{value.firstSeen}}</span>
+  </div>
+  <div>
+    <span class="p-key">Last Seen:</span>
+    <span class="p-value">{{value.lastSeen}}</span>
+  </div>
+{{/each-in}}
