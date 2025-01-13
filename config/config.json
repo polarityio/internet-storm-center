@@ -1,15 +1,26 @@
 {
   "name": "Internet Storm Center",
   "acronym": "ISC",
-  "description": "Search SANS Internet Storm Center IP information",
+  "description": "View SANS Internet Storm Center IP information",
+  "dataTypes": [
+    "IPv4"
+  ],
   "entityTypes": [
     "IPv4"
   ],
+  "onDemandOnly": true,
+  "defaultColor": "light-gray",
   "styles": [
     "./styles/styles.less"
   ],
-  "onDemandOnly": true,
-  "defaultColor": "light-gray",
+  "block": {
+    "component": {
+      "file": "./components/block.js"
+    },
+    "template": {
+      "file": "./templates/block.hbs"
+    }
+  },
   "request": {
     "cert": "",
     "key": "",
@@ -21,5 +32,14 @@
     "level": "info"
   },
   "options": [
+    {
+      "key": "ignoreZeroCount",
+      "name": "Only View IPs with Blocked Packets",
+      "description": "If enabled, the integration will only return information on IP addresses that have a blocked packet count greater than zero",
+      "default": false,
+      "type": "boolean",
+      "userCanEdit": false,
+      "adminOnly": true
+    }
   ]
 }

@@ -1,32 +1,17 @@
-# Polarity - Feedly Integration
+# Polarity - Internet Storm Center IP Lookup Integration
 
-The Polarity Feedly integration lets you search a Feedly Stream for indicators or all text.
+The Polarity Internet Storm Center (ISC) integration lookups information on IPv4 addresses using the SANS Internet Storm Center IP lookup REST API.
+
+For more information on the ISC API see https://isc.sans.edu/api/#ip
+
+For information on how the ISC Risk Score is determined see: https://isc.sans.edu/risk.html
 
 <img src=./images/overlay.png width=50%>
 
-## Integration Options
+## Internet Storm Center Integration Options
 
-### Feedly API Key
-Your Feedly API Key
-
-### Feedly Stream ID
-The ID of the Feedly stream you want to search. Will typically have a format like:
-
-```
-enterprise/yourorg/category/f37c627f-0dc3-496c-9c9f-56fccdf84c57
-```
-
-### Max Results
-The maximum number of results to return from Feedly when searching. Defaults to 25.
-
-### Show Search Disclaimer
-If enabled, the integration will show a disclaimer the user must accept before running a search.
-
-### Search Disclaimer Content
-A disclaimer that users must review before the integration will submit questions to the Google Search API.
-
-### Disclaimer Interval
-How often to display the disclaimer to users. Restarting the integration will reset the interval timer.
+### Only View IPs with Blocked Packets
+If enabled, the integration will only return information on IP addresses that have a blocked packet count greater than zero.
 
 ## Installation Instructions
 

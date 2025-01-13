@@ -1,55 +1,47 @@
 'use strict';
-const config = require('./config/config.json');
-const {
-  logging: { setLogger },
-  requests: { PolarityRequest }
-} = require('polarity-integration-utils');
 
-let Logger;
-let request;
+const async = require('async');
 
-function startup(logger) {
+const { setLogger } = require('./src/logger');
+const { createResultObject } = require('./src/create-result-object');
+const { searchIp } = require('./src/search-ip');
+const { version: packageVersion } = require('./package.json');
+
+const MAX_TASKS_AT_A_TIME = 2;
+const USER_AGENT = `abuseipdb-polarity-integration-v${packageVersion}`;
+let Logger = null;
+
+const startup = (logger) => {
   Logger = logger;
-  setLogger(logger);
-  request = new PolarityRequest({
-    defaults: {
-      json: true
-    },
-    roundedSuccessStatusCodes: [200],
-    requestOptionsToOmitFromLogsKeyPaths: []
-  });
-}
+  setLogger(Logger);
+};
 
-async function doLookup(entities, options, cb) {
+const doLookup = async (entities, options, cb) => {
   Logger.trace({ entities }, 'doLookup');
 
-  const lookupResults = [];
+  let lookupResults = [];
+  const tasks = [];
 
-  const requestOptions = entities.map((entity) => {
-    return {
-      resultId: entity,
-      uri: `https://isc.sans.edu/api/ip/${entity.value}?json`
-    };
-  });
-  
-  const responses = await request.runInParallel(requestOptions);
-  
-  responses.forEach((response) => {
-    lookupResults.push({
-      entity: response.resultId,
-      data: {
-        summary: ['Hello'],
-        details: response.result
-      }
+  entities.forEach((entity) => {
+    tasks.push(async () => {
+      const searchResult = await searchIp(entity, options);
+      const searchResultObject = createResultObject(entity, searchResult, options);
+      lookupResults.push(searchResultObject);
     });
   });
 
-  Logger.info({ lookupResults }, 'lookupResults');
+  try {
+    await async.parallelLimit(tasks, MAX_TASKS_AT_A_TIME);
+  } catch (error) {
+    Logger.error({ error }, 'Error in doLookup');
+    return cb(error);
+  }
 
+  Logger.trace({ lookupResults }, 'Lookup Results');
   cb(null, lookupResults);
-}
+};
 
 module.exports = {
-  doLookup,
-  startup
+  startup,
+  doLookup
 };

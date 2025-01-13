@@ -1,10 +1,10 @@
 const fs = require('fs');
-const crypto = require('crypto');
-const url = require('url');
-
+const { version: packageVersion } = require('../package.json');
 const request = require('postman-request');
 const { getLogger } = require('./logger');
 const { NetworkError } = require('./errors');
+
+const USER_AGENT = `isc-polarity-integration-v${packageVersion}`;
 
 const {
   request: { ca, cert, key, passphrase, rejectUnauthorized, proxy }
@@ -19,7 +19,10 @@ const defaults = {
   ...(_configFieldIsValid(passphrase) && { passphrase }),
   ...(_configFieldIsValid(proxy) && { proxy }),
   ...(typeof rejectUnauthorized === 'boolean' && { rejectUnauthorized }),
-  json: true
+  json: true,
+  headers: {
+    'User-Agent': USER_AGENT
+  }
 };
 
 function unixEpochTimeInSeconds() {
