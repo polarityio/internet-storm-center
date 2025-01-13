@@ -1,0 +1,249 @@
+{{#if ip.comments}}
+  <div class="mb-1">
+    <span class="p-key">Comment:</span>
+    <span class="p-value">{{ip.comment}}</span>
+  </div>
+{{/if}}
+<div class="info-bar mb-1">
+  <div class="info-bar-row">
+    <div class="info-bar-pill">
+      <span class="info-bar-key">Max Risk</span>
+      <span class="info-bar-value">
+        {{#if (or ip.maxrisk (eq ip.maxrisk 0))}}{{ip.maxrisk}}/10{{else}}N/A{{/if}}
+      </span>
+    </div>
+    <div class="info-bar-pill">
+      <span class="info-bar-key d-flex align-items-center">
+        <div>
+          Attacks
+        </div>
+        <div class="ml-1">
+          {{fa-icon icon="info" fixedWidth=true class="info-icon"}}
+          {{bs-tooltip title="Number of unique destination IP addresses for these packets"}}
+        </div>
+      </span>
+      <span class="info-bar-value">
+        {{#if ip.attacks}}
+          {{ip.attacks}}
+        {{else}}
+          0
+        {{/if}}
+      </span>
+    </div>
+    <div class="info-bar-pill">
+      <span class="info-bar-key d-flex align-items-center">
+        <div>
+          Count
+        </div>
+        <div class="ml-1">
+          {{fa-icon icon="info" fixedWidth=true class="info-icon"}}
+          {{bs-tooltip title="Total number of packets blocked from this IP"}}
+        </div>
+      </span>
+      <span class="info-bar-value">
+        {{#if ip.count}}
+          {{ip.count}}
+        {{else}}
+          0
+        {{/if}}        
+      </span>
+    </div>
+  </div>
+</div>
+{{#if (not ip.updated ip.mindate ip.maxdate)}}
+  <div>
+    No report data available for IP
+  </div>
+{{/if}}
+{{#if ip.updated}}
+  <div>
+    <span class="p-key">Updated:</span>
+    <span class="p-value">{{ip.updated}}</span>
+  </div>
+{{/if}}
+{{#if ip.mindate}}
+  <div>
+    <span class="p-key">Min Date:</span>
+    <span class="p-value">{{ip.mindate}}</span>
+  </div>
+{{/if}}
+{{#if ip.maxdate}}
+  <div>
+    <span class="p-key">Max Date:</span>
+    <span class="p-value">{{ip.maxdate}}</span>
+  </div>
+{{/if}}
+
+{{#if ip.cloud}}
+  <div>
+    <span class="p-key">Cloud:</span>
+    <span class="p-value">{{ip.cloud}}</span>
+  </div>
+{{/if}}
+{{#if ip.clouddetails}}
+  <div>
+    <span class="p-key">Cloud:</span>
+    <span class="p-value">{{ip.clouddetails}}</span>
+  </div>
+{{/if}}
+
+{{#if ip.alexa}}
+  <h1 class="p-title">Alexa Info</h1>
+  <div>
+    <span class="p-key">Domains:</span>
+    <span class="p-value">{{ip.alexa.domains}}</span>
+  </div>
+  <div>
+    <span class="p-key">First Seen:</span>
+    <span class="p-value">{{ip.alexa.firstseen}}</span>
+  </div>
+  <div>
+    <span class="p-key">Hostname:</span>
+    <span class="p-value">{{ip.alexa.hostname}}</span>
+  </div>
+  <div>
+    <span class="p-key">Last Rank:</span>
+    <span class="p-value">{{ip.alexa.lastrank}}</span>
+  </div>
+  <div>
+    <span class="p-key">Last Seen:</span>
+    <span class="p-value">{{ip.alexa.lastseen}}</span>
+  </div>
+{{/if}}
+<h1 class="p-title">AS Info</h1>
+<div>
+  <span class="p-key">ASN:</span>
+  <span class="p-value">AS{{ip.as}}</span>
+</div>
+<div>
+  <span class="p-key">Name:</span>
+  <span class="p-value p-block">{{ip.asname}}</span>
+</div>
+<div>
+  <span class="p-key">Country:</span>
+  <span class="p-value">{{ip.ascountry}}</span>
+</div>
+<div>
+  <span class="p-key">Size:</span>
+  <span class="p-value">{{ip.assize}}</span>
+</div>
+{{#if ip.abusecontact}}
+  <div>
+    <span class="p-key">Abuse Contact:</span>
+    <span class="p-value">{{ip.asabusecontact}}</span>
+  </div>
+{{/if}}
+
+{{#if ip.ssh}}
+  <h1 class="p-title">SSH</h1>
+  <div class="info-bar mb-1">
+    <div class="info-bar-row">
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Attempts</span>
+        <span class="info-bar-value">
+          {{ip.ssh.attempts}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Usernames</span>
+        <span class="info-bar-value">
+          {{ip.ssh.usernames}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Passwords</span>
+        <span class="info-bar-value">
+          {{ip.ssh.passwords}}
+        </span>
+      </div>
+    </div>
+    <div class="info-bar-row">
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Start</span>
+        <span class="info-bar-value">
+          {{ip.ssh.start}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">End</span>
+        <span class="info-bar-value">
+          {{ip.ssh.end}}
+        </span>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+{{#if ip.weblogs}}
+  <h1 class="p-title">
+    Web Logs
+    <div class="ml-1">
+      {{fa-icon icon="info" fixedWidth=true class="info-icon"}}
+      {{bs-tooltip title="Web application logs collected via ISC honeypots"}}
+    </div>
+  </h1>
+  <div class="info-bar mb-1">
+    <div class="info-bar-row">
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Count</span>
+        <span class="info-bar-value">
+          {{ip.weblogs.count}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Avg Authors</span>
+        <span class="info-bar-value">
+          {{ip.weblogs.avgauthors}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Avg URLs</span>
+        <span class="info-bar-value">
+          {{ip.weblogs.avgurls}}
+        </span>
+      </div>
+    </div>
+    <div class="info-bar-row">
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Avg User Agents</span>
+        <span class="info-bar-value">
+          {{ip.weblogs.avguser_agents}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">First Seen</span>
+        <span class="info-bar-value">
+          {{ip.weblogs.firstseen}}
+        </span>
+      </div>
+      <div class="info-bar-pill">
+        <span class="info-bar-key">Last Seen</span>
+        <span class="info-bar-value">
+          {{ip.weblogs.lastseen}}
+        </span>
+      </div>
+    </div>
+  </div>
+{{/if}}
+
+{{#if ip.threatfeeds}}
+  <h1 class="p-title">Threat Feeds</h1>
+  {{#each-in ip.threatfeeds as | feedName value |}}
+    <div class="container d-flex justify-content-between">
+      <div>
+        <div class="info-bar-key">Name</div>
+        <div class="info-bar-value">{{feedName}}</div>
+      </div>
+      <div>
+        <div>
+          <span class="info-bar-key">First Seen:</span>
+          <span class="p-value">{{value.firstseen}}</span>
+        </div>
+        <div>
+          <span class="info-bar-key">Last Seen:</span>
+          <span class="p-value">{{value.lastseen}}</span>
+        </div>
+      </div>
+    </div>
+  {{/each-in}}
+{{/if}}
